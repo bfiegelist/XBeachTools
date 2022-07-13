@@ -12,12 +12,14 @@ lat2 = [];
 lat3 = [];
 lat4 = [];
 lat5 = [];
+lat6 = [];
 lonNaN = [];
 lon1 = [];
 lon2 = [];
 lon3 = [];
 lon4 = [];
 lon5 = [];
+lon6 = [];
 for i = 1:length(a.Profile)
     if isnan(a.Profile(i).RMSE == 1)
         latNaN = [latNaN,a.Profile(i).lat];
@@ -28,20 +30,23 @@ for i = 1:length(a.Profile)
     elseif a.Profile(i).RMSE < 0.4 && a.Profile(i).RMSE >= 0.2
         lat2 = [lat2,a.Profile(i).lat];
         lon2 = [lon2,a.Profile(i).lon];
-    elseif a.Profile(i).RMSE < 0.6 && a.Profile(i).RMSE >= 0.4
+    elseif a.Profile(i).RMSE < 0.7 && a.Profile(i).RMSE >= 0.4
         lat3 = [lat3,a.Profile(i).lat];
         lon3 = [lon3,a.Profile(i).lon];
-    elseif a.Profile(i).RMSE < 0.8 && a.Profile(i).RMSE >= 0.6
+    elseif a.Profile(i).RMSE < 1 && a.Profile(i).RMSE >= 0.7
         lat4 = [lat4,a.Profile(i).lat];
         lon4 = [lon4,a.Profile(i).lon];
-    elseif a.Profile(i).RMSE > 0.8
+    elseif a.Profile(i).RMSE < 2 && a.Profile(i).RMSE >= 1
         lat5 = [lat5,a.Profile(i).lat];
         lon5 = [lon5,a.Profile(i).lon];
+    elseif a.Profile(i).RMSE >= 2
+        lat6 = [lat6,a.Profile(i).lat];
+        lon6 = [lon6,a.Profile(i).lon];
     end
 end
-pushbuttonPlot2(lats,lons,a,lat1,lat2,lat3,lat4,lat5,lon1,lon2,lon3,lon4,lon5,latNaN,lonNaN)
+pushbuttonPlot2(lats,lons,a,lat1,lat2,lat3,lat4,lat5,lat6,lon1,lon2,lon3,lon4,lon5,lon6,latNaN,lonNaN)
 
-function pushbuttonPlot2(lats,lons,a,lat1,lat2,lat3,lat4,lat5,lon1,lon2,lon3,lon4,lon5,latNaN,lonNaN)
+function pushbuttonPlot2(lats,lons,a,lat1,lat2,lat3,lat4,lat5,lat6,lon1,lon2,lon3,lon4,lon5,lon6,latNaN,lonNaN)
 % myfig = uifigure('Name','Transect Viewer','WindowStyle','alwaysontop');
 % myfig.Position = get(0, 'Screensize');
 % myfig = uifigure('Windowstyle','alwaysontop','Position', get(0, 'Screensize'));
@@ -61,8 +66,11 @@ geoplot(lat4,lon4,'.','color','#D95319','MarkerSize',15);
 hold on
 geoplot(lat5,lon5,'.','color','#A2142F','MarkerSize',15);
 hold on
-geoplot(latNaN,lonNaN,'.','color','k','MarkerSize',15);
-legend('RMSE < 0.2','0.2 < RMSE <0.4','0.4 < RMSE <0.6','0.6 < RMSE <0.8','RMSE > 0.8','NaN')
+% geoplot(latNaN,lonNaN,'.','color','k','MarkerSize',15);
+% hold on
+geoplot(lat6,lon6,'.','color','k','MarkerSize',15);
+
+legend('RMSE < 0.2','0.2 < RMSE < 0.4','0.4 < RMSE < 0.7','0.7 < RMSE < 1','1 < RMSE < 2','RMSE > 2')
 % set(gcf, 'Position', get(0, 'Screensize'));
 myfig.Position = [100 100 900 900];
 geobasemap('topographic');
