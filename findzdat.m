@@ -1,5 +1,5 @@
-function ProfView(ID)
-%close all
+function [zdat2 zdat_loc Dlow2 Dlow_loc] = findzdat(ID,Profile)
+close all
 current_folder = pwd;
 cd('C:\Users\rf20354\Documents\Research\RC_Profiles')
 load('Final_TWL_Profiles_04282022.mat');
@@ -18,8 +18,9 @@ nx = (abs(x(end) - x(1)))/0.05+1;
 xnew = linspace(x(1),x(end),nx);
 ynew = interp1(x,y,xnew);
 j = 0;
+k = 0;
 
-    for i = 1:length(xnew)
+    for i = round(length(xnew)/2):length(xnew)
         if ynew(i)>zdat && j == 0
             diff1 = abs(ynew(i-1)-zdat);
             diff2 = abs(ynew(i)-zdat);
@@ -69,7 +70,7 @@ rmse = rms(y2-y3);
 
 
 
-f=figure(100);
+f=figure(1);
 f.Position(3:4) = [800 800];
 subplot(2,1,1);
 area(xnew, zdat+zeros(1,length(xnew)),-999)
@@ -83,6 +84,7 @@ hold on
 % y2 = slope.*x2+zdat;
 %plot(x2adj,y2,'r')
 plot(x3,y2,'r')
+rmse = rms(y2-y3);
 txt = ['Beach Slope RMSE = ',num2str(round(rmse,3))];
 text(.05,.95,txt,'Units','normalized')
 txt = ['Beach Slope = ',num2str(round(slope,3))];

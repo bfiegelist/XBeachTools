@@ -1,4 +1,4 @@
-function [xnew, ynew] = RefineTransect(ID,quality)
+function [xnew, ynew] = RefineTransectold(ID,quality)
 current_folder = pwd;
 cd('C:\Users\rf20354\Documents\Research\RC_Profiles')
 load('Final_TWL_Profiles_04282022.mat');

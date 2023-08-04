@@ -79,7 +79,7 @@ function Runup_1Dfun(xboutput, Ho, T, Profile_ID)
     rmse = rms(y2-y3);
     legend('XBeach','Stockdon','MHWL','Beach','Beach slope','Location','southeast');xlabel('Cross-shore distance (m)');
     ylabel('Elevation NAVD88 (m)');
-    title(['Transect ',num2str(Profile_ID),': ',num2str(lat),' ',num2str(lon)])
+    title(['Transect ',num2str(row2ID(Profile_ID)),': ',num2str(lat),' ',num2str(lon)])
     txt = ['Stockdon Runup = ',num2str(round(R2Stock,3)),' m'];
     text(.05,.95,txt,'Units','normalized')
     txt = ['XBeach Runup = ',num2str(round(XBrmax-MHWL,3)),' m'];
